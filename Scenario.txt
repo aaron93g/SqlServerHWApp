@@ -1,0 +1,37 @@
+Data to Store
+
+	First Name
+	Last Name
+	
+	email(s)
+
+	Employer Name (has multiple employees)
+	
+
+CRUD
+	Create - person model; employer inherit person; email;
+	Read - get associated information with Id;
+	Update - persons email, employer
+	Delete - person(email)
+
+
+Normalize Data
+
+Step 1
+		PERSON TABLE
+	Id
+	First Name
+	Last Name
+
+		EMPLOYER TABLE
+	Id
+	PersonID
+
+		EMAIL TABLE
+	Id
+	Email
+
+		EMAIL CONNECTION
+	Id
+	PersonId
+	EmailId	

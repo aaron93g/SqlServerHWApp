@@ -17,7 +17,7 @@ namespace DataAccessLibrary
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                List<T> rows = connection.Query<T>(sqlStatement, connection).ToList();
+                List<T> rows = connection.Query<T>(sqlStatement, parameter).ToList();
                 return rows;
             }
         }

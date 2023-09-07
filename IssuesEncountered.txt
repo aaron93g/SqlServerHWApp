@@ -1,0 +1,16 @@
+			MINOR ISSUES
+
+
+System.IO.FileNotFoundException: 'The configuration file 'AppSettings.json' was not found and is not optional. 
+				The expected physical path was 'C:\Users\aaron\source\projectTypesRepos\HomeWork\SqlTypes\SqlServerHWApp\SqlServerHW\bin\Debug\net6.0										\AppSettings.json'.'
+
+FIX:	'AppSettings.json' is in the SqlServerHW folder had to copy and paste to the expected physical path
+
+
+
+System.ArgumentException: 'Keyword not supported: 'trust server certificate'.'
+			
+TRIED:	tried getting rid of spaces between words and changing value to True (didn't work)
+FIX:	had to edit the 'AppSettings.json' in the SqlServerHW folder, then copy and paste to the expected physical path
+
+

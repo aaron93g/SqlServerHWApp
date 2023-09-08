@@ -1,13 +1,28 @@
 ﻿using Microsoft.Extensions.Configuration;
 using DataAccessLibrary;
-
+using System.Data.SqlTypes;
+using DataAccessLibrary.Models;
 
 SqlCrud sql = new SqlCrud(GetConnectionString());
 
-sql.GetEmployerInformation(2);
+GetEmployees(sql, 2);
 
 
 //GetPeoplesNames(sql);
+
+
+
+static void GetEmployees(SqlCrud sql, int employerId)
+{
+    PersonnelModel employer = new PersonnelModel();
+    employer = sql.GetEmployerInformation(employerId);
+
+    Console.WriteLine("The selected employer is assigned to the following employees:");
+    foreach (var employee in employer.Employee)
+    {
+        Console.WriteLine($"{employee.Id}: {employee.FirstName} {employee.LastName}");
+    }
+}
 
 
 static void GetPeoplesNames(SqlCrud sql)

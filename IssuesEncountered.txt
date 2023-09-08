@@ -4,13 +4,18 @@
 System.IO.FileNotFoundException: 'The configuration file 'AppSettings.json' was not found and is not optional. 
 				The expected physical path was 'C:\Users\aaron\source\projectTypesRepos\HomeWork\SqlTypes\SqlServerHWApp\SqlServerHW\bin\Debug\net6.0										\AppSettings.json'.'
 
-FIX:	'AppSettings.json' is in the SqlServerHW folder had to copy and paste to the expected physical path
+FIX:	Had to change ConfigurationBuilder variable .SetBasePath to the location of the "AppSettings.json" file [@"C:\Users\aaron\source\projectTypesRepos
+														\HomeWork\SqlType\SqlServerHWApp\SqlServerHW]
+FIX (alternate): I discovered that the property "Copy to Output Directory"
+		 in the json File properties places the file in the Current working directory
+
+
 
 
 
 System.ArgumentException: 'Keyword not supported: 'trust server certificate'.'
 			
 TRIED:	tried getting rid of spaces between words and changing value to True (didn't work)
-FIX:	had to edit the 'AppSettings.json' in the SqlServerHW folder, then copy and paste to the expected physical path
+FIX:	found and deleted a duplicate configuation .json file in '\bin\Debug\net6.0' 
 
 

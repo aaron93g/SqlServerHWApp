@@ -18,13 +18,57 @@ namespace DataAccessLibrary
         }
 
 
+        // CREATE
+        public void CreateCompanyEmployee(PersonnelModel personnel)
+        {
+            string sql = "insert into dbo.Person (FirstName, LastName) values (@FirstName, @LastName);";
+            db.SaveData(sql, new {FirstName = personnel.Employee[0].FirstName, LastName = personnel.Employee[0].LastName }, connection);
+
+
+            sql = "select Id from dbo.Person where FirstName = @FirstName and LastName = @LastName;";
+            personnel.Employee[0].Id = db.LoadData<PersonModel, dynamic>(sql, new { personnel.Employee[0].FirstName, personnel.Employee[0].LastName }, connection).First().Id;
+
+            // INSERT NEW EMPLOYEE RELATION TO EMPLOYER
+            sql = "insert into dbo.Employer (PersonId, EmployeeId) values (@PersonId, @EmployeeId);";
+            db.SaveData(sql, new { PersonId = personnel.Employer[0].Id, EmployeeId = personnel.Employee[0].Id }, connection);
+
+
+            foreach (var email in personnel.Employee[0].Emails)
+            {
+                if(email.Id == 0)
+                {
+                    sql = "insert into dbo.Email (EmailAddress) values (@Email);";
+                    db.SaveData(sql, new { Email = email.EmailAddress }, connection);
+
+                    sql = "select Id from dbo.Email where EmailAddress = @Email;";
+                    email.Id = db.LoadData<EmailModel, dynamic>(sql, new { Email = email.EmailAddress }, connection).First().Id;
+                }
+
+                sql = "insert into dbo.EmailConnection (PersonId, EmailAddressId) values (@EmployeeId, @EmailAddressId);";
+                db.SaveData(sql, new {EmployeeId = personnel.Employee[0].Id, EmailAddressId = personnel.Employee[0].Emails.First().Id }, connection);
+            }
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+        //READ
+
         public List<PersonModel> GetAll()
         {
             string sqlStatement = "select * from dbo.Person;";
             return db.LoadData<PersonModel, dynamic>(sqlStatement, new { }, connection);
         }
 
-        public PersonnelModel GetEmployerInformation(int employerId)
+        public PersonnelModel GetEmployeeInformation(int employerId)
         {
             PersonnelModel employer = new PersonnelModel();
 
@@ -35,6 +79,18 @@ namespace DataAccessLibrary
                            where e.PersonId = @employerId";
 
             employer.Employee = db.LoadData<PersonModel, dynamic>(sql, new { employerId }, connection);
+
+            //employer.Employee[0].Id;
+
+            for(int i = 0; i < employer.Employee.Count; i++)
+            {
+                sql = @"select e.* from dbo.Email e
+                           inner join dbo.EmailConnection ec on ec.EmailAddressId = e.Id
+                           where ec.PersonId = @employeeId";
+                int employeeId = employer.Employee[i].Id;
+                employer.Employee[i].Emails = db.LoadData<EmailModel, dynamic>(sql, new { employeeId }, connection);
+            }
+
 
             return employer;
         }

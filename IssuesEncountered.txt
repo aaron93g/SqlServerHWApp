@@ -4,9 +4,9 @@
 System.IO.FileNotFoundException: 'The configuration file 'AppSettings.json' was not found and is not optional. 
 				The expected physical path was 'C:\Users\aaron\source\projectTypesRepos\HomeWork\SqlTypes\SqlServerHWApp\SqlServerHW\bin\Debug\net6.0										\AppSettings.json'.'
 
-FIX:	Had to change ConfigurationBuilder variable .SetBasePath to the location of the "AppSettings.json" file [@"C:\Users\aaron\source\projectTypesRepos
+	FIX:	Had to change ConfigurationBuilder variable .SetBasePath to the location of the "AppSettings.json" file [@"C:\Users\aaron\source\projectTypesRepos
 														\HomeWork\SqlType\SqlServerHWApp\SqlServerHW]
-FIX (alternate): I discovered that the property "Copy to Output Directory"
+	FIX (alternate): I discovered that the property "Copy to Output Directory"
 		 in the json File properties places the file in the Current working directory
 
 
@@ -15,7 +15,11 @@ FIX (alternate): I discovered that the property "Copy to Output Directory"
 
 System.ArgumentException: 'Keyword not supported: 'trust server certificate'.'
 			
-TRIED:	tried getting rid of spaces between words and changing value to True (didn't work)
-FIX:	found and deleted a duplicate configuation .json file in '\bin\Debug\net6.0' 
+	TRIED:	tried getting rid of spaces between words and changing value to True (didn't work)
+	FIX:	found and deleted a duplicate configuation .json file in '\bin\Debug\net6.0' 
 
 
+
+
+
+Issue with my create employee personnel. a new email added to email connection table does not use the new Id to EmailAddressId.

@@ -12,6 +12,5 @@ namespace DataAccessLibrary.Models
         // multiple employees relation to selected Employer
         public List<PersonModel> Employee { get; set; }
         public List<EmployerModel> Employer { get; set; }
-        public List<EmailModel> EmailAddresses { get; set; }
     }
 }

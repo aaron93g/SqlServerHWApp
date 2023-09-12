@@ -10,7 +10,7 @@ namespace DataAccessLibrary.Models
     {
         // Want to be able to display Employer relation to selected Employee OR
         // multiple employees relation to selected Employer
-        public List<PersonModel> Employee { get; set; }
-        public List<EmployerModel> Employer { get; set; }
+        public List<PersonModel> Employee { get; set; } = new List<PersonModel>();
+        public List<EmployerModel> Employer { get; set; } = new List<EmployerModel>();
     }
 }

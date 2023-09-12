@@ -22,4 +22,10 @@ System.ArgumentException: 'Keyword not supported: 'trust server certificate'.'
 
 
 
-Issue with my create employee personnel. a new email added to email connection table does not use the new Id to EmailAddressId.
+Issue with my create employee personnel method. a new email added to email connection table does not use the new Id to EmailAddressId.
+
+
+	- I have a Personnel.List<personModel>.List<emailModel>
+	- Was explicitly stating to use Personnel.person[0].emails.First().Id
+	
+	FIX: overcomplicating the task; corrected myself to use the foreach email in Personnel.List<PersonModel>.List<EmailModel>

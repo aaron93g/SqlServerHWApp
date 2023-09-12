@@ -45,7 +45,7 @@ namespace DataAccessLibrary
                 }
 
                 sql = "insert into dbo.EmailConnection (PersonId, EmailAddressId) values (@EmployeeId, @EmailAddressId);";
-                db.SaveData(sql, new {EmployeeId = personnel.Employee[0].Id, EmailAddressId = personnel.Employee[0].Emails.First().Id }, connection);
+                db.SaveData(sql, new {EmployeeId = personnel.Employee[0].Id, EmailAddressId = email.Id }, connection);
             }
 
 

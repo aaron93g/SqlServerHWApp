@@ -60,7 +60,7 @@ namespace DataAccessLibrary
 
         }
 
-        //READ
+        // READ
 
         public List<PersonModel> GetAll()
         {
@@ -95,6 +95,20 @@ namespace DataAccessLibrary
             return employer;
         }
 
+
+
+        // UPDATE
+
+        public EmailModel UpdateEmail(int emailId, string newAddress)
+        {
+            string sql = "update dbo.Email set EmailAddress = @newAddress where Id = @emailId;";
+            db.SaveData(sql, new { newAddress, emailId }, connection);
+
+            sql = "select EmailAddress from dbo.Email where Id = @emailId;";
+            EmailModel email = db.LoadData<EmailModel, dynamic>(sql, new { emailId }, connection).First();
+
+            return email;
+        }
 
     }
 }

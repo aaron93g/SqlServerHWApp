@@ -7,14 +7,11 @@ SqlCrud sql = new SqlCrud(GetConnectionString());
 
 
 
+#region CreatePersonExample
 PersonnelModel person = new PersonnelModel();
-person.Employee = new List<PersonModel>();
-person.Employer = new List<EmployerModel>();
-
 EmployerModel employer = new EmployerModel();
-
 PersonModel employee = new PersonModel();
-employee.Emails = new List<EmailModel>();
+
 EmailModel email1 = new EmailModel();
 EmailModel email2 = new EmailModel();
 
@@ -30,22 +27,28 @@ employer.Id = 2;
 
 person.Employee.Add(employee);
 person.Employer.Add(employer);
+#endregion
 
-
+//CreateAnEmployee(sql, person);
 
 
 
 //GetEmployees(sql, 2);
 //GetPeoplesNames(sql);
-CreateAnEmployee(sql, person);
+
+//UpdateEmailAddress(sql, 2, "BigBoss@Boss.Mail");
+
+DeletePerson(sql,1);
 
 
-
+// CREATE
 static void CreateAnEmployee(SqlCrud sql, PersonnelModel model)
 {
     sql.CreateCompanyEmployee(model);
 }
 
+
+// READ
 static void GetEmployees(SqlCrud sql, int employerId)
 {
     PersonnelModel employer = new PersonnelModel();
@@ -67,7 +70,6 @@ static void GetEmployees(SqlCrud sql, int employerId)
 
 }
 
-
 static void GetPeoplesNames(SqlCrud sql)
 {
     var rows = sql.GetAll();
@@ -78,6 +80,21 @@ static void GetPeoplesNames(SqlCrud sql)
     }
 }
 
+
+// UPDATE
+static void UpdateEmailAddress(SqlCrud sql, int emailId, string newEmail)
+{
+    EmailModel email = sql.UpdateEmail(emailId, newEmail);
+    Console.WriteLine($"The previous email has been changed to {email.EmailAddress}");
+}
+
+
+// DELETE
+static void DeletePerson(SqlCrud sql, int personId)
+{
+    sql.DeletePerson(personId);
+    Console.WriteLine( "process complete");
+}
 
 static string GetConnectionString(string connectionString = "Default")
 {

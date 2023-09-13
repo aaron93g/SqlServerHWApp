@@ -110,5 +110,40 @@ namespace DataAccessLibrary
             return email;
         }
 
+
+        // DELETE
+
+        public void DeletePerson(int personId)
+        {
+            string sql = "delete from dbo.Person where Id = @personId;";
+            db.SaveData(sql, new { personId }, connection);
+
+            sql = "delete from dbo.Employer where EmployeeId = @personId;";
+            db.SaveData(sql, new { personId }, connection);
+
+            sql = "select Id, PersonId, EmailAddressId from dbo.EmailConnection where PersonId = @personId;";
+            var DeletedEmailId = db.LoadData<EmailConnectionModel, dynamic>(sql, new { personId }, connection);
+
+            sql = "delete from dbo.EmailConnection where PersonId = @personId;";
+            db.SaveData(sql, new { personId }, connection);
+
+
+
+            foreach (var emailId in DeletedEmailId)
+            {
+                int Id = emailId.EmailAddressId;
+
+                sql = "select * from dbo.EmailConnection where EmailAddressId = @Id;";
+                var emailConnections = db.LoadData<EmailConnectionModel, dynamic>(sql, new { Id }, connection);
+
+                if(emailConnections.Count == 0)
+                {
+                    sql = "delete from dbo.Email where Id = @Id;";
+                    db.SaveData(sql, new { Id }, connection);
+                }
+            }
+
+        }
+
     }
 }
